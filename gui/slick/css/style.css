@@ -1743,22 +1743,22 @@ select .selected {
     background-color: #BBBBBB !important;
 }
 
-#provider-options #zonetelechargementDiv .uptoboxColor{
+#provider-options .uptoboxColor{
     color: #0130CA !important;
 }
-#provider-options #zonetelechargementDiv .upleaColor{
+#provider-options .upleaColor{
     color: #0099CC !important;
 }
-#provider-options #zonetelechargementDiv .oneFichierColor{
+#provider-options .oneFichierColor{
     color: #000000 !important;
 }
-#provider-options #zonetelechargementDiv .uploadedColor{
+#provider-options .uploadedColor{
     color: #216BE7 !important;
 }
-#provider-options #zonetelechargementDiv .rapidgatorColor{
+#provider-options .rapidgatorColor{
     color: #FFA518 !important;
 }
-#provider-options #zonetelechargementDiv .turboBitColor{
+#provider-options .turboBitColor{
     color: #F76B00 !important;
 }
 
