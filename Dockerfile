@@ -15,7 +15,7 @@ RUN addgroup -g ${PGID} sickrage && \
     adduser -u ${PUID} -D -S -G sickrage sickrage
 
 RUN git config --global advice.detachedHead false && \
-    git clone --quiet https://github.com/SickRage/SickRage/ --branch $SICKRAGE_VERSION --single-branch --depth=1 /app/sickrage
+    git clone --quiet https://github.com/schumijo/SickRage/ --branch $SICKRAGE_VERSION --single-branch --depth=1 /app/sickrage
 
 RUN mkdir /var/run/sickrage/ && \
     chown sickrage. /var/run/sickrage/ && \
@@ -23,10 +23,6 @@ RUN mkdir /var/run/sickrage/ && \
     chown sickrage. /config && \
     mkdir /data/ && \
     chown sickrage. /data
-
-RUN echo '[General]' > /config/config.ini; if [ "$SICKRAGE_VERSION" = "master" ]; then echo 'auto_update = 1' >> /config/config.ini ; else echo 'auto_update = 0' >> /config/config.ini ; fi
-
-RUN if [ "$SICKRAGE_VERSION" = "master" ]; then chown -R sickrage. /app/sickrage/ ; fi
 
 VOLUME ["/config","/data"]
 
