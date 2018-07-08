@@ -38,7 +38,9 @@ class DDLIslandProvider(DDLProvider):  # pylint: disable=too-many-instance-attri
         self.cache = tvcache.TVCache(self, min_time=0)  # Only poll DDLIsland every 10 minutes max
 
         self.urls = {'base_url': 'http://www.ddl-island.su',
-                     'search': 'http://www.ddl-island.su/recherche.php?categorie=98&rechercher=Rechercher&fastr_type=ddl&find=',
+                     'search': {'http://www.ddl-island.su/recherche.php?categorie=98&rechercher=Rechercher&fastr_type=ddl&find=',
+                                'http://www.ddl-island.su/recherche.php?categorie=98&rechercher=Rechercher&fastr_type=ddl&start=2&find=',
+                                'http://www.ddl-island.su/recherche.php?categorie=98&rechercher=Rechercher&fastr_type=ddl&start=3&find='},
                      'rss': 'http://www.ddl-island.su'}
 
         self.url = self.urls['base_url']
@@ -80,7 +82,7 @@ class DDLIslandProvider(DDLProvider):  # pylint: disable=too-many-instance-attri
                 logger.log(u"search_string_for_url: {0}".format
                            (search_string_for_url.decode("utf-8")), logger.DEBUG)
 
-                search_urlS = [self.urls['search']]
+                search_urlS = self.urls['search']
                 for search_url in search_urlS:
 
                     data = {}

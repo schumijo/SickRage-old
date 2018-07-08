@@ -29,13 +29,13 @@ from sickrage.helper.common import convert_size
 from sickrage.providers.ddl.DDLProvider import DDLProvider
 from sickbeard.bs4_parser import BS4Parser
 
-class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-instance-attributes
+class DDLIslandProvider(DDLProvider):  # pylint: disable=too-many-instance-attributes
 
     def __init__(self):
 
-        DDLProvider.__init__(self, "ZoneTelechargement")
+        DDLProvider.__init__(self, "DDLIsland")
 
-        self.cache = tvcache.TVCache(self, min_time=0)  # Only poll ZoneTelechargement every 10 minutes max
+        self.cache = tvcache.TVCache(self, min_time=0)  # Only poll DDLIsland every 10 minutes max
 
         self.urls = {'base_url': 'http://www.ddl-island.su',
                      'search': 'http://www.ddl-island.su/recherche.php?categorie=98&rechercher=Rechercher&fastr_type=ddl&find=',
@@ -46,36 +46,6 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
         self.headers.update({'User-Agent': USER_AGENT})
 
         self.storageProviderAllow = {}
-
-        self.titleVersion = {
-            'vostfr': {
-                'keywords': ["vostfr", "hdtv"],
-                'suffix': 'VOSTFR.HDTV'
-            },
-            'vf': {
-                'keywords': ["french", "hdtv"],
-                'suffix': 'FRENCH.HDTV'
-            },
-            'vostfr-hd': {
-                'keywords': ["720p","vostfr"],
-                'suffix': 'VOSTFR.720P.HDTV.x264'
-            },
-            'vf-hd': {
-                'keywords': ["french", "720p"],
-                'suffix': 'FRENCH.720P.HDTV.x264'
-            },
-            'vostfr-1080p': {
-                'keywords': ["vostfr", "hd1080p"],
-                'suffix': 'VOSTFR.1080P.HDTV.x264'
-            },
-            'vf-1080p': {
-                'keywords': ["french", "hd1080p"],
-                'suffix': 'FRENCH.1080P.HDTV.x264'
-            }
-        }
-
-    def getTitleVersion(self, x):
-        return titleVersion.get(x, '')
 
     def canUseProvider(self, data):
         for key,value in self.storageProviderAllow.items():
@@ -167,4 +137,4 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
 
         return results
 
-provider = ZoneTelechargementProvider()
+provider = DDLIslandProvider()
