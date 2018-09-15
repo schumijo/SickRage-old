@@ -38,7 +38,7 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
         self.cache = tvcache.TVCache(self, min_time=0)  # Only poll ZoneTelechargement every 10 minutes max
 
         self.urls = {'base_url': 'https://ww1.zone-telechargement1.org',
-                     'search': 'https://ww1.zone-telechargement1.org/index.php?do=search',
+                     'search': 'https://ww1.zone-telechargement1.org/index.php?do=search&subaction=search&full_search=1&story=',
                      'rss': 'https://ww1.zone-telechargement1.org/rss.xml'}
 
         self.url = self.urls['base_url']
@@ -120,7 +120,8 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                     data["story"] = search_string_for_url
                     data["catlist[]"] = "15,16,17,18,19,20,21"
 
-                    dataSearch = self.get_url(search_url, post_data=data)
+                    #dataSearch = self.get_url(search_url, post_data=data)
+                    dataSearch = self.get_url(search_url+search_string_for_url)
                     if not dataSearch:
                         continue
 
@@ -143,7 +144,7 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                     
                                     corps_page = htmlPage(class_=re.compile('corps'))
                                     quality = corps_page[0].find_all('div')
-                                    quality = quality[3].text.replace(' ','-').lower()
+                                    quality = quality[4].text.replace(' ','-').lower()
                                     logger.log(quality, logger.DEBUG)
 
                                     for key, tv in self.titleVersion.items():
@@ -161,9 +162,9 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                         if  self.canUseProvider(providerDDLName) and \
                                             bTag.text.startswith("Episode "+str(int(episodeVersion))):
                                             providerDDLLink = bTag.find_all('a')[0]['href']
-                                            logger.log(providerDDLName, logger.DEBUG)
-                                            logger.log(title, logger.DEBUG)
-                                            logger.log(providerDDLLink, logger.DEBUG)
+                                            logger.log("Provider : "+providerDDLName, logger.DEBUG)
+                                            logger.log("Title : "+title, logger.DEBUG)
+                                            logger.log("Link : "+providerDDLLink, logger.DEBUG)
 
                                             item = {'title': title, 'link': providerDDLLink}
                                             items.append(item)
