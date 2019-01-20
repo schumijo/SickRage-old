@@ -37,9 +37,9 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
 
         self.cache = tvcache.TVCache(self, min_time=0)  # Only poll ZoneTelechargement every 10 minutes max
 
-        self.urls = {'base_url': 'https://ww1.zone-telechargement1.org',
-                     'search': 'https://ww1.zone-telechargement1.org/index.php?do=search&subaction=search&full_search=1&story=',
-                     'rss': 'https://ww1.zone-telechargement1.org/rss.xml'}
+        self.urls = {'base_url': 'https://vvvvvv.annuaire-telechargement.com/',
+                     'search': 'https://vvvvvv.annuaire-telechargement.com/index.php?do=search&subaction=search&full_search=1&story=',
+                     'rss': 'https://vvvvvv.annuaire-telechargement.com/rss.xml'}
 
         self.url = self.urls['base_url']
 
