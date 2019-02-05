@@ -1569,6 +1569,10 @@ def initialize(consoleLogging=True):  # pylint: disable=too-many-locals, too-man
                                                                      curDdlProvider.get_id() + '_allow_turboBit',
                                                                      0))
 
+                curDdlProvider.storageProviderAllow['Mega'] = bool(check_setting_int(CFG, curDdlProvider.get_id().upper(),
+                                                                     curDdlProvider.get_id() + '_allow_mega',
+                                                                     0))
+
 
         if not ek(os.path.isfile, CONFIG_FILE):
             logger.log("Unable to find '" + CONFIG_FILE + "', all settings will be default!", logger.DEBUG)
@@ -1962,6 +1966,9 @@ def save_config():  # pylint: disable=too-many-statements, too-many-branches
 
             new_config[curDdlProvider.get_id().upper()][
                 curDdlProvider.get_id() + '_allow_turboBit'] = int(curDdlProvider.storageProviderAllow['TurboBit'])
+
+            new_config[curDdlProvider.get_id().upper()][
+                curDdlProvider.get_id() + '_allow_mega'] = int(curDdlProvider.storageProviderAllow['Mega'])
 
 
     new_config.update({
