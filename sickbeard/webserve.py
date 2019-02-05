@@ -4997,6 +4997,12 @@ class ConfigProviders(Config):
                 except Exception:
                     curDdlProvider.storageProviderAllow['TurboBit'] = False
 
+                try:
+                    curDdlProvider.storageProviderAllow['Mega'] = config.checkbox_to_value(
+                        kwargs[curDdlProvider.get_id() + '_allow_mega'])
+                except Exception:
+                    curDdlProvider.storageProviderAllow['Mega'] = False
+
         sickbeard.NEWZNAB_DATA = '!!!'.join([x.configStr() for x in sickbeard.newznabProviderList])
         sickbeard.PROVIDER_ORDER = provider_list
 

@@ -787,7 +787,7 @@
                                     </div>
                                 % endif
 
-                                % if hasattr(curDDLProvider, 'storageProviderAllow') and (curDDLProvider.get_id() == 'zonetelechargement' or curDDLProvider.get_id() == 'ddlisland'):
+                                % if hasattr(curDDLProvider, 'storageProviderAllow') and (curDDLProvider.get_id() == 'zonetelechargement' or curDDLProvider.get_id() == 'ddlisland' or curDDLProvider.get_id() == 'seriescr'):
                                     <div class="field-pair row">
                                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
                                             <label class="component-title">${_('Uptobox')}</label>
@@ -836,6 +836,16 @@
                                             <input type="checkbox" name="${curDDLProvider.get_id()}_allow_turboBit"
                                                    id="${curDDLProvider.get_id()}_allow_turboBit" ${('', 'checked="checked"')[bool(curDDLProvider.storageProviderAllow['TurboBit'])]}/>
                                             <label for="${curDDLProvider.get_id()}_allow_turboBit">${_('download <b class="turboBitColor">"TurboBit"</b> links.')}</label>
+                                        </div>
+                                    </div>
+                                    <div class="field-pair row">
+                                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+                                            <label class="component-title">${_('Mega')}</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 component-desc">
+                                            <input type="checkbox" name="${curDDLProvider.get_id()}_allow_mega"
+                                                   id="${curDDLProvider.get_id()}_allow_mega" ${('', 'checked="checked"')[bool(curDDLProvider.storageProviderAllow['Mega'])]}/>
+                                            <label for="${curDDLProvider.get_id()}_allow_mega">${_('download <b class="megaColor">"Mega"</b> links.')}</label>
                                         </div>
                                     </div>
                                 % endif

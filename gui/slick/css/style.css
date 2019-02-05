@@ -1761,6 +1761,9 @@ select .selected {
 #provider-options .turboBitColor{
     color: #F76B00 !important;
 }
+#provider-options .megaColor{
+    color: red !important;
+}
 
 #provider_order_list input,
 #service_order_list input {
