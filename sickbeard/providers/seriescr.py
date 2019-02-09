@@ -133,13 +133,10 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                                     content_page = htmlPage(class_=re.compile('more'))
                                     bMore = content_page[0].find_all('div')
                                     bTags = bDesc + bMore
-                                    logger.log(len(bTags), logger.DEBUG)
                                     bTags = bTags[:-2]
-                                    logger.log(len(bTags), logger.DEBUG)
                                     i=1
                                     for bTag in bTags:
                                         if i%4 == 1:
-                                            logger.log(bTag, logger.DEBUG)
                                             quality = bTag.find_all('strong')
                                             quality = quality[0].text.lower()
 
@@ -149,7 +146,6 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                                                     break;
 
                                         if i%4 == 3:
-                                            logger.log(bTag, logger.DEBUG)
                                             bLinks = bTag.find_all('a')
                                             providerDDLName = ""
                                             for bLink in bLinks:
