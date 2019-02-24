@@ -132,6 +132,11 @@ def snatchEpisode(result, endStatus=SNATCHED):  # pylint: disable=too-many-branc
             else:
                 logger.log("Torrent file content is empty", logger.WARNING)
                 dlResult = False
+
+    elif result.resultType == GenericProvider.DDL:
+        client = clients.getClientInstance(sickbeard.DDL_METHOD)()
+        dlResult = client.sendDDL(result)
+
     else:
         logger.log("Unknown result type, unable to download it ({0!r})".format(result.resultType), logger.ERROR)
         dlResult = False
