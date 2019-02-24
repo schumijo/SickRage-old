@@ -131,7 +131,7 @@ class DDLSearchResult(SearchResult):  # pylint: disable=too-few-public-methods
     """
     def __init__(self, episodes):
         super(DDLSearchResult, self).__init__(episodes)
-        self.resultType = u'ddl'
+        self.resultType = 'ddl'
 
 
 class AllShowsListUI(object):  # pylint: disable=too-few-public-methods
