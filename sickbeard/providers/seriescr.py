@@ -53,12 +53,24 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                 'keywords': ["hdtv"],
                 'suffix': 'SDTV'
             },
+            'vo-web': {
+                'keywords': ["web"],
+                'suffix': 'SDTV'
+            },
             'vostfr-hd': {
                 'keywords': ["720p","hdtv","x264"],
                 'suffix': '720P.HDTV.x264'
             },
+            'vostfr-hd-web': {
+                'keywords': ["720p","web","x264"],
+                'suffix': '720P.HDTV.x264'
+            },
             'vostfr-hd-x265': {
                 'keywords': ["720p","hdtv","x265"],
+                'suffix': '720P.HDTV.x265'
+            },
+            'vostfr-hd-x265-web': {
+                'keywords': ["720p","web","x265"],
                 'suffix': '720P.HDTV.x265'
             },
             'vostfr-1080p': {
@@ -142,11 +154,12 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                                             logger.log(bTag, logger.DEBUG)
                                             quality = bTag.find_all('strong')
                                             quality = quality[0].text.lower()
+                                            title = quality
 
-                                            for key, tv in self.titleVersion.items():
-                                                if all(keyword in quality for keyword in tv["keywords"]):
-                                                    title = search_string.replace(" ",".") +"."+ tv["suffix"]
-                                                    break;
+                                            #for key, tv in self.titleVersion.items():
+                                            #    if all(keyword in quality for keyword in tv["keywords"]):
+                                            #        title = search_string.replace(" ",".") +"."+ tv["suffix"]
+                                            #        break;
 
                                         if i%4 == 3:
                                             logger.log(bTag, logger.DEBUG)
