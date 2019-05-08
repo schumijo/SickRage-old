@@ -1760,7 +1760,9 @@ select .selected {
 #provider-options .megaColor{
     color: red !important;
 }
-
+#provider-options .agxzColor{
+    color: black !important;
+}
 
 #provider_order_list input,
 #service_order_list input {
