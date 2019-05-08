@@ -132,6 +132,8 @@ class GrabTheBeastProvider(DDLProvider):  # pylint: disable=too-many-instance-at
                                 dataPage = self.get_url(link_dl, verify=False)
                                 with BS4Parser(dataPage, 'html5lib') as htmlPage:
                                     corps_page = htmlPage(class_=re.compile('grid'))
+                                    if len(corps_page)<1:
+                                        continue
                                     ddlLinks = corps_page[0].find_all('source')
 
                                     providerDDLName = ""
