@@ -139,7 +139,7 @@ class GrabTheBeastProvider(DDLProvider):  # pylint: disable=too-many-instance-at
                                         providerDDLLink = ddlLink.get('src')
                                         title = providerDDLLink.split("/")[-1]
                                         #provider = providerDDLLink.split("/")[2]
-                                        provider = "Mega"
+                                        provider = "Agxz"
 
                                         if self.canUseProvider(provider):
                                             providerDDLName = provider
