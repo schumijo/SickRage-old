@@ -4867,6 +4867,12 @@ class ConfigProviders(Config):
                         kwargs[curProvider.get_id() + '_allow_mega'])
                 except Exception:
                     curProvider.storageProviderAllow['Mega'] = False
+                    
+                try:
+                    curProvider.storageProviderAllow['Agxz'] = config.checkbox_to_value(
+                        kwargs[curProvider.get_id() + '_allow_agxz'])
+                except Exception:
+                    curProvider.storageProviderAllow['Agxz'] = False
 
             if hasattr(curProvider, 'cat'):
                 curProvider.cat = int(str(kwargs.get(curProvider.get_id('_cat'), 0)).strip())
