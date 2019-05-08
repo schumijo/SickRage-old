@@ -821,7 +821,7 @@
                                     </div>
                                 % endif
 
-                                % if hasattr(curDDLProvider, 'storageProviderAllow') and (curDDLProvider.get_id() == 'zonetelechargement' or curDDLProvider.get_id() == 'ddlisland' or curDDLProvider.get_id() == 'seriescr'):
+                                % if hasattr(curDDLProvider, 'storageProviderAllow') and (curDDLProvider.get_id() == 'zonetelechargement' or curDDLProvider.get_id() == 'ddlisland' or curDDLProvider.get_id() == 'seriescr' or curDDLProvider.get_id() == 'grabthebeast'):
                                     <div class="field-pair row">
                                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
                                             <label class="component-title">${_('Uptobox')}</label>
