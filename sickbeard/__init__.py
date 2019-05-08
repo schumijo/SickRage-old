@@ -1510,6 +1510,10 @@ def initialize(consoleLogging=True):  # pylint: disable=too-many-locals, too-man
                 curProvider.storageProviderAllow['Mega'] = bool(check_setting_int(CFG, curProvider.get_id().upper(),
                                                                      curProvider.get_id() + '_allow_mega',
                                                                      0))
+                
+                curProvider.storageProviderAllow['Agxz'] = bool(check_setting_int(CFG, curProvider.get_id().upper(),
+                                                                     curProvider.get_id() + '_allow_agxz',
+                                                                     0))
 
             if hasattr(curProvider, 'cat'):
                 curProvider.cat = check_setting_int(CFG, curProvider.get_id().upper(), curProvider.get_id('_cat'), 0)
@@ -1845,6 +1849,10 @@ def save_config():  # pylint: disable=too-many-statements, too-many-branches
 
             new_config[curProvider.get_id().upper()][
                 curProvider.get_id() + '_allow_mega'] = int(curProvider.storageProviderAllow['Mega'])
+            
+            new_config[curProvider.get_id().upper()][
+                curProvider.get_id() + '_allow_agxz'] = int(curProvider.storageProviderAllow['Agxz'])
+            
         if hasattr(curProvider, 'cat'):
             new_config[curProvider.get_id().upper()][curProvider.get_id('_cat')] = int(curProvider.cat)
         if hasattr(curProvider, 'subtitle'):
