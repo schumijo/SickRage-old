@@ -882,6 +882,16 @@
                                             <label for="${curDDLProvider.get_id()}_allow_mega">${_('download <b class="megaColor">"Mega"</b> links.')}</label>
                                         </div>
                                     </div>
+                                    <div class="field-pair row">
+                                        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+                                            <label class="component-title">${_('Agxz')}</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 component-desc">
+                                            <input type="checkbox" name="${curDDLProvider.get_id()}_allow_agxz"
+                                                   id="${curDDLProvider.get_id()}_allow_agxz" ${('', 'checked="checked"')[bool(curDDLProvider.storageProviderAllow['Agxz'])]}/>
+                                            <label for="${curDDLProvider.get_id()}_allow_agxz">${_('download <b class="agxzColor">"Agxz"</b> links.')}</label>
+                                        </div>
+                                    </div>
                                 % endif
 
                             </div>
