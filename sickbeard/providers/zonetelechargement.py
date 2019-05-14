@@ -134,6 +134,7 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                 logger.log(links_page[0].get('href'), logger.DEBUG)
                                 
                                 seasonNameDetect = links_page[0].get_text()
+                                seasonNameDetect = " ".join(seasonNameDetect.split())
                                 if not seasonNameDetect.find("Saison "+str(int(seasonVersion))) >= 0:
                                     continue
 
