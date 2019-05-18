@@ -57,6 +57,14 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                 'keywords': ["french", "hdtv"],
                 'suffix': 'FRENCH.HDTV'
             },
+            'vostfr-webdl': {
+                'keywords': ["vostfr", "web-dl"],
+                'suffix': 'VOSTFR.WEB-DL'
+            },
+            'vf-webdl': {
+                'keywords': ["french", "web-dl"],
+                'suffix': 'FRENCH.WEB-DL'
+            },
             'vostfr-hd': {
                 'keywords': ["720p","vostfr"],
                 'suffix': 'VOSTFR.720P.HDTV.x264'
@@ -72,6 +80,10 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
             'vf-1080p': {
                 'keywords': ["french", "hd1080p"],
                 'suffix': 'FRENCH.1080P.HDTV.x264'
+            },
+            'multi-webdl': {
+                'keywords': ["multi", "720p"],
+                'suffix': 'MULTI.720P.WEB-DL'
             }
         }
 
