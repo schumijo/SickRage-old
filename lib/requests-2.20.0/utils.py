@@ -38,8 +38,6 @@ NETRC_FILES = ('.netrc', '_netrc')
 
 DEFAULT_CA_BUNDLE_PATH = certs.where()
 
-DEFAULT_PORTS = {'http': 80, 'https': 443}
-
 
 if sys.platform == 'win32':
     # provide a proxy_bypass version on Windows without DNS lookups
@@ -266,7 +264,7 @@ def from_key_val_list(value):
         >>> from_key_val_list([('key', 'val')])
         OrderedDict([('key', 'val')])
         >>> from_key_val_list('string')
-        ValueError: cannot encode objects that are not 2-tuples
+        ValueError: need more than 1 value to unpack
         >>> from_key_val_list({'key': 'val'})
         OrderedDict([('key', 'val')])
 
