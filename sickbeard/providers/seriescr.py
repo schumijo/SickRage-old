@@ -21,7 +21,7 @@
 import time
 import traceback
 import re
-import cfscrape
+import cloudscraper 
 
 from sickbeard import helpers, logger, tvcache
 from sickbeard.common import USER_AGENT
@@ -120,7 +120,7 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                 for search_url in search_urlS:
 
                     data = {}
-                    sessionSearch = cfscrape.create_scraper()
+                    sessionSearch = cloudscraper.create_scraper()
                     dataSearch = sessionSearch.get(search_url+search_string).content
 
                     if not dataSearch:
@@ -134,7 +134,7 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                                 links_page = result_rows.find_all('a')
                                 logger.log(links_page[0].get('href'), logger.DEBUG)
                                 
-                                sessionPage = cfscrape.create_scraper()
+                                sessionPage = cloudscraper.create_scraper()
                                 dataPage = sessionPage.get(links_page[0].get('href')).content
                                 with BS4Parser(dataPage, 'html5lib') as htmlPage:
                                     url = links_page[0].get('href')
