@@ -21,7 +21,7 @@
 import time
 import traceback
 import re
-import cloudscraper 
+import cloudscraper
 
 from sickbeard import helpers, logger, tvcache
 from sickbeard.common import USER_AGENT
@@ -47,7 +47,7 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
         self.headers.update({'User-Agent': USER_AGENT})
 
         self.storageProviderAllow = {}
-        
+
         self.titleVersion = {
             'vo': {
                 'keywords': ["hdtv"],
@@ -103,7 +103,7 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
             logger.log(u"Search Mode: {0}".format(mode), logger.DEBUG)
 
             for search_string in search_params[mode]:
-                    
+
                 detectSeasonEpisode = re.search('(\d{1,2})[^\d]{1,2}(\d{1,2})(?:[^\d]{1,2}(\d{1,2}))?.*', search_string)
                 seasonVersion = detectSeasonEpisode.group(1)
                 episodeVersion = detectSeasonEpisode.group(2)
@@ -133,36 +133,24 @@ class SeriesCRProvider(DDLProvider):  # pylint: disable=too-many-instance-attrib
                             try:
                                 links_page = result_rows.find_all('a')
                                 logger.log(links_page[0].get('href'), logger.DEBUG)
-                                
+
                                 sessionPage = cloudscraper.create_scraper()
                                 dataPage = sessionPage.get(links_page[0].get('href')).content
                                 with BS4Parser(dataPage, 'html5lib') as htmlPage:
                                     url = links_page[0].get('href')
                                     title = ""
-                                    
-                                    content_page = htmlPage(class_=re.compile('description'))
-                                    bDesc = content_page[1].find_all('div')
-                                    content_page = htmlPage(class_=re.compile('more'))
-                                    bMore = content_page[0].find_all('div')
-                                    bTags = bDesc + bMore
-                                    logger.log(len(bTags), logger.DEBUG)
-                                    bTags = bTags[:-2]
-                                    logger.log(len(bTags), logger.DEBUG)
+
+                                    content_page = htmlPage(class_=re.compile('entry-content'))
+                                    bTags = content_page[0].find_all('strong')
                                     i=1
                                     for bTag in bTags:
-                                        if i%4 == 1:
-                                            logger.log(bTag, logger.DEBUG)
-                                            quality = bTag.find_all('strong')
-                                            quality = quality[0].text.lower()
+                                        if i%3 == 1:
+                                            #logger.log(bTag, logger.DEBUG)
+                                            quality = bTag.text.lower()
                                             title = quality
 
-                                            #for key, tv in self.titleVersion.items():
-                                            #    if all(keyword in quality for keyword in tv["keywords"]):
-                                            #        title = search_string.replace(" ",".") +"."+ tv["suffix"]
-                                            #        break;
-
-                                        if i%4 == 3:
-                                            logger.log(bTag, logger.DEBUG)
+                                        if i%3 == 0:
+                                            #logger.log(bTag, logger.DEBUG)
                                             bLinks = bTag.find_all('a')
                                             providerDDLName = ""
                                             for bLink in bLinks:
