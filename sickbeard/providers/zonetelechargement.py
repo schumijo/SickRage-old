@@ -166,7 +166,8 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                         if all(keyword in quality for keyword in tv["keywords"]):
                                             title = search_string.replace(" ",".") +"."+ tv["suffix"]
                                             break;
-
+                                    logger.log(title,logger.DEBUG)
+                                    
                                     content_page = htmlPage(class_=re.compile('postinfo'))
                                     bTags = content_page[0].find_all('b')
                                     providerDDLName = ""
