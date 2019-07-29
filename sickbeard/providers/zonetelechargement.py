@@ -57,6 +57,10 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                 'keywords': ["french", "hdtv"],
                 'suffix': 'FRENCH.HDTV'
             },
+            'vf-webrip': {
+                'keywords': ["french", "webrip"],
+                'suffix': 'FRENCH.WEBRIP'
+            },
             'vostfr-webdl': {
                 'keywords': ["vostfr", "web-dl"],
                 'suffix': 'VOSTFR.WEB-DL'
@@ -79,6 +83,10 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
             },
             'vf-1080p': {
                 'keywords': ["french", "hd1080p"],
+                'suffix': 'FRENCH.1080P.HDTV.x264'
+            },
+            'multi-1080p': {
+                'keywords': ["multi", "1080p"],
                 'suffix': 'FRENCH.1080P.HDTV.x264'
             },
             'multi-webdl': {
@@ -160,17 +168,21 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                     corps_page = htmlPage(class_=re.compile('corps'))
                                     quality = corps_page[0].find_all('div')
                                     quality = quality[4].text.replace(' ','-').lower()
-                                    logger.log(quality, logger.DEBUG)
 
                                     for key, tv in self.titleVersion.items():
                                         if all(keyword in quality for keyword in tv["keywords"]):
                                             title = search_string.replace(" ",".") +"."+ tv["suffix"]
                                             break;
-                                    logger.log(title,logger.DEBUG)
+                                            
+                                    logger.log("Quality detected : "+title,logger.DEBUG)
                                     
                                     content_page = htmlPage(class_=re.compile('postinfo'))
-                                    bTags = content_page[0].find_all('b')
                                     providerDDLName = ""
+                                    
+                                    bTags = content_page[0].find_all('b')
+                                    if len(bTags) == 0:
+                                        logger.log("No links parsed", logger.DEBUG)
+                                        
                                     for bTag in bTags:
                                         if self.canUseProvider(bTag.text):
                                             providerDDLName = bTag.text
@@ -178,9 +190,9 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                         if  self.canUseProvider(providerDDLName) and \
                                             bTag.text.startswith("Episode "+str(int(episodeVersion))):
                                             providerDDLLink = bTag.find_all('a')[0]['href']
-                                            logger.log("Provider : "+providerDDLName, logger.DEBUG)
-                                            logger.log("Title : "+title, logger.DEBUG)
-                                            logger.log("Link : "+providerDDLLink, logger.DEBUG)
+                                            logger.log("Provider : "+providerDDLName, logger.INFO)
+                                            logger.log("Title : "+title, logger.INFO)
+                                            logger.log("Link : "+providerDDLLink, logger.INFO)
 
                                             item = {'title': title, 'link': providerDDLLink}
                                             items.append(item)
