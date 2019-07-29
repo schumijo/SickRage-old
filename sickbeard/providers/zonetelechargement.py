@@ -183,12 +183,7 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                     if len(bTags) == 0:
                                         logger.log("No links parsed", logger.DEBUG)
                                         
-                                    for bTag in bTags:
-                                        action = bTag.find('form').get('action')
-                                        logger.log(action, logger.DEBUG)
-                                        value = soup.find('input', {'name':'url'})['value']
-                                        logger.log(value, logger.DEBUG)
-                                        
+                                    for bTag in bTags:                                     
                                         if self.canUseProvider(bTag.text):
                                             providerDDLName = bTag.text
 
