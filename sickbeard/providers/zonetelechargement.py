@@ -118,7 +118,7 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
             logger.log(u"Search Mode: {0}".format(mode), logger.DEBUG)
 
             for search_string in search_params[mode]:
-                    
+
                 detectSeasonEpisode = re.search('(\d{1,2})[^\d]{1,2}(\d{1,2})(?:[^\d]{1,2}(\d{1,2}))?.*', search_string)
                 seasonVersion = detectSeasonEpisode.group(1)
                 episodeVersion = detectSeasonEpisode.group(2)
@@ -151,8 +151,8 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                         for result_rows in serie_rows:
                             try:
                                 links_page = result_rows.find_all('a')
-                                logger.log(links_page[0].get('href'), logger.DEBUG)
-                                
+                                logger.log("Result found : "+links_page[0].get('href'), logger.DEBUG)
+
                                 #seasonNameDetect = links_page[0].get_text()
                                 seasonNameDetect = links_page[0].get('href')
                                 seasonNameDetect = " ".join(seasonNameDetect.split())
@@ -164,39 +164,47 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                 with BS4Parser(dataPage, 'html5lib') as htmlPage:
                                     url = links_page[0].get('href')
                                     title = ""
-                                    
-                                    corps_page = htmlPage(class_=re.compile('corps'))
-                                    quality = corps_page[0].find_all('div')
-                                    quality = quality[4].text.replace(' ','-').lower()
+
+                                    corps_page = htmlPage(class_=re.compile('postinfo'))
+                                    quality = corps_page[0].find_all('font')
+                                    quality = quality[0].text.replace(' ','-').lower()
 
                                     for key, tv in self.titleVersion.items():
                                         if all(keyword in quality for keyword in tv["keywords"]):
                                             title = search_string.replace(" ",".") +"."+ tv["suffix"]
                                             break;
-                                            
+
                                     logger.log("Quality detected : "+title,logger.DEBUG)
-                                    
-                                    content_page = htmlPage(class_=re.compile('postinfo'))
+
                                     providerDDLName = ""
-                                    
-                                    bTags = content_page[0].find_all('b')
-                                    if len(bTags) == 0:
-                                        logger.log("No links parsed", logger.DEBUG)
-                                        
-                                    for bTag in bTags:                                     
-                                        if self.canUseProvider(bTag.text):
-                                            providerDDLName = bTag.text
+                                    bTags = corps_page[0].find_all('b')
 
-                                        if  self.canUseProvider(providerDDLName) and \
-                                            bTag.text.startswith("Episode "+str(int(episodeVersion))):
-                                            providerDDLLink = bTag.find_all('a')[0]['href']
-                                            logger.log("Provider : "+providerDDLName, logger.INFO)
-                                            logger.log("Title : "+title, logger.INFO)
-                                            logger.log("Link : "+providerDDLLink, logger.INFO)
+                                    for bTag in bTags:
+                                        bForms = bTag.find_all('form')
 
-                                            item = {'title': title, 'link': providerDDLLink}
-                                            items.append(item)
+                                        if len(bForms) == 0:
                                             providerDDLName = ""
+                                            if self.canUseProvider(bTag.text):
+                                                providerDDLName = bTag.text
+                                        else:
+                                            if self.canUseProvider(providerDDLName) and \
+                                               bTag.find_all('button')[0].text.startswith("Episode "+str(int(episodeVersion))):
+                                                   DlProtectLink = bForms[0].get('action')
+                                                   encryptUrl = bTag.find_all('input')[0].get('value')
+
+                                                   data = {}
+                                                   data["url"] = encryptUrl
+                                                   dataProtect = self.get_url(DlProtectLink, post_data=data)
+                                                   with BS4Parser(dataProtect, 'html5lib') as htmlProtect:
+                                                       protect_page = htmlProtect(class_=re.compile('card-body'))
+                                                       providerDDLLink = protect_page[0].find_all('a')[0].get('href')
+
+                                                   logger.log("Provider : "+providerDDLName, logger.INFO)
+                                                   logger.log("Title : "+title, logger.INFO)
+                                                   logger.log("Link : "+providerDDLLink, logger.INFO)
+
+                                                   item = {'title': title, 'link': providerDDLLink}
+                                                   items.append(item)
 
                             except Exception:
                                 logger.log(u'Failed doing webui callback: {0}'.format((traceback.format_exc())), logger.ERROR)
