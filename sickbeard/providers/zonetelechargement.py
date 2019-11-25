@@ -197,6 +197,7 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                                    data = {}
                                                    data["url"] = encryptUrl
                                                    dataProtect = self.get_url(DlProtectLink, post_data=data)
+                                                   logger.log(dataProtect,logger.DEBUG)
                                                    with BS4Parser(dataProtect, 'html5lib') as htmlProtect:
                                                        protect_page = htmlProtect(class_=re.compile('card-body'))
                                                        providerDDLLink = protect_page[0].find_all('a')[0].get('href')
