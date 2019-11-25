@@ -190,7 +190,9 @@ class ZoneTelechargementProvider(DDLProvider):  # pylint: disable=too-many-insta
                                             if self.canUseProvider(providerDDLName) and \
                                                bTag.find_all('button')[0].text.startswith("Episode "+str(int(episodeVersion))):
                                                    DlProtectLink = bForms[0].get('action')
+                                                   logger.log("Protected link : "+DlProtectLink,logger.DEBUG)
                                                    encryptUrl = bTag.find_all('input')[0].get('value')
+                                                   logger.log("Protected URL : "+encryptUrl,logger.DEBUG)
 
                                                    data = {}
                                                    data["url"] = encryptUrl
