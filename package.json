@@ -35,7 +35,7 @@
     "jquery": "^3.2.1",
     "load-grunt-tasks": "^3.5.2",
     "npm-check-updates": "^2.10.5",
-    "snyk": "^1.28.1",
+    "snyk": "^1.996.0",
     "xo": "^0.18.2"
   },
   "ava": {
